@@ -15,7 +15,7 @@
             <h4 class="side-title">Tác Giả</h4>
             <ul class="list-unstyled">
                 @foreach($product_author as $own)
-                    <li><a href="author/{{ $own['id'] }}">{{ $own['name'] }}</a></li>
+                    <li><a href="tac-gia/{{ $own['slug'] }}-{{ $own['id'] }}.html">{{ $own['name'] }}</a></li>
                 @endforeach
             </ul>
         </div>

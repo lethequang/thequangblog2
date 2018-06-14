@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 use App\Product;
 
@@ -11,7 +12,6 @@ class AdminController extends Controller
 	{
 		return view('admin.post.add');
 	}
-
 
 	public function saveAddProduct(Request $request)
 	{
@@ -26,6 +26,18 @@ class AdminController extends Controller
 		$post->year = $request->input('year');
 		$post->quantity = $request->input('quantity');
 		$post->description = $request->input('descrip');
+		$post->save();
+		return redirect()->back()->with('message', 'Thêm bài viết thành công !');
+	}
+
+	public function showAddCategory(){
+		return view('admin.category.add');
+	}
+	public function saveAddCategory(Request $request)
+	{
+		$post = new Category();
+
+		$post->name = $request->input('name');
 		$post->save();
 		return redirect()->back()->with('message', 'Thêm bài viết thành công !');
 	}

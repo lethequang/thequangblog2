@@ -8,6 +8,7 @@ use App\Author;
 use Session;
 use Hash;
 use App\Feedback;
+use SluggableScopeHelpers;
 
 use Illuminate\Http\Request;
 
@@ -52,7 +53,8 @@ class PageController extends Controller
 	public function getAuthor($id)
 	{
 		$author_product = Product::where('id_author', $id)
-			->paginate('9');
+			->paginate('9')
+		->findBySlug($id);
 		$author = Author::where('id', $id)->first();
 		return view('page.author', compact('author_product', 'author'));
 	}
@@ -64,6 +66,6 @@ class PageController extends Controller
 		$type_product = Product::where('id_category', $product->id_category)->get();
 		$category = Category::where('id', $product->id_category)->first();
 		$author = Author::where('id', $product->id_author)->first();
-		return view('page.detail', compact('product', 'type_product', 'category', 'author'));
+		return view('page.detail', compact('product', 'type_product', 'category', 'author','book_author'));
 	}
 }

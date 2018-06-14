@@ -36,11 +36,11 @@ Route::get('category/{id}',[
 	'as'=>'category',
 	'uses'=>'PageController@getType'
 ]);
-Route::get('author/{id}',[
+Route::get('tac-gia/{slug}-{id}.html',[
 	'as'=>'author',
 	'uses'=>'PageController@getAuthor'
 ]);
-Route::get('{slug}.html',[
+Route::get('sach/{slug}.html',[
 	'as'=>'detail',
 	'uses'=>'PageController@getDetail'
 ]);
@@ -105,3 +105,6 @@ Route::post('checkout',[
 // Admin
 Route::get('admin/product/add','AdminController@showAddProduct');
 Route::post('admin/product/add','AdminController@saveAddProduct')->name('product-add');
+
+Route::get('admin/category/add','AdminController@showAddCategory');
+Route::post('admin/category/add','AdminController@saveAddCategory')->name('category-add');
