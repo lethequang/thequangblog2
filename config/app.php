@@ -140,6 +140,8 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+
+
 		Cviebrock\EloquentSluggable\ServiceProvider::class,
 		Laravel\Socialite\SocialiteServiceProvider::class,
 
@@ -174,6 +176,9 @@ return [
         /*
          * Application Service Providers...
          */
+
+
+
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,

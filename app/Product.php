@@ -1,13 +1,10 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cocur\Slugify\Slugify;
 use SluggableTrait;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
-
 class Product extends Model
 {
 	use Sluggable;

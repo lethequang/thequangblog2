@@ -36,11 +36,11 @@ Route::get('category/{id}',[
 	'as'=>'category',
 	'uses'=>'PageController@getType'
 ]);
-Route::get('tac-gia/{slug}-{id}.html',[
+Route::get('author/{id}',[
 	'as'=>'author',
 	'uses'=>'PageController@getAuthor'
 ]);
-Route::get('sach/{slug}.html',[
+Route::get('book/{slug}',[
 	'as'=>'detail',
 	'uses'=>'PageController@getDetail'
 ]);

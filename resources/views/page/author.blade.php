@@ -5,7 +5,7 @@
         <div class="col-md-9">
             <div class="content-bottom">
                 <h4 class="pull-right">Tìm thấy {{ count($author_product) }} cuốn sách của tác giả này</h4>
-                <h3>{{ $author->name }}</h3>
+                <h3>{{ $author['name'] }}</h3>
                 <div class="row display-flex">
                     @foreach($author_product as $book)
                         <div class="col-xs-12 col-md-4">
@@ -13,7 +13,7 @@
                                 <div class="pi-img-wrapper">
                                     <img src="images/{{ $book['image'] }}" class="img-responsive" alt="">
                                     <div>
-                                        <a href="detail/{{ $book['id'] }}" class="btn">Chi Tiết</a>
+                                        <a href="book/{{ $book['slug'] }}" class="btn">Chi Tiết</a>
                                     </div>
                                 </div>
                                 <p><a href="">{{ $book['title'] }}</a></p>

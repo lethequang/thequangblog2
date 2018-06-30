@@ -1,11 +1,12 @@
-@include('admin.AdminLTE.sidebar')
+@extends('admin.master')
+@section('content')
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">ADD POST</h3>
+                <h3 class="box-title">Thêm Sách</h3>
             </div>
             <div class="box-body">
                 @if (session('error'))
@@ -21,57 +22,60 @@
                 <form class="form-horizontal" action="{{ route('product-add') }}" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">title</label>
-                        <div class="col-sm-4">
+                        <label class="control-label col-sm-2" for="">Tên Sách</label>
+                        <div class="col-sm-10">
                             <input type="text" class="form-control" id="" name="title">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">id_cat</label>
-                        <div class="col-sm-4">
-                            <input value="10" type="text" class="form-control" id="" name="id_cat">
+                        <label class="control-label col-sm-2" for="">Thể Loại</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="id_cat">
+                                @foreach($category as $cate)
+                                <option value="{{ $cate['id'] }}">{{ $cate['name'] }}</option>
+                                    @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">id_auth</label>
-                        <div class="col-sm-4">
-                            <input value="30" type="text" class="form-control" id="" name="id_auth">
+                        <label class="control-label col-sm-2" for="">Tác Giả</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="id_auth">
+                                @foreach($author as $au)
+                                    <option value="{{ $au['id'] }}">{{ $au['name'] }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">price</label>
+                        <label class="control-label col-sm-2" for="">Giá Tiền</label>
                         <div class="col-sm-4">
-                            <input value="20000" type="text" class="form-control" id="" name="price">
+                            <input type="text" class="form-control" id="" name="price">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">promo</label>
+                        <label class="control-label col-sm-2" for="">Năm Xuất Bản</label>
                         <div class="col-sm-4">
-                            <input value="0" type="text" class="form-control" id="" name="promo">
+                            <input type="text" class="form-control" id="" name="year">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">year</label>
+                        <label class="control-label col-sm-2" for="">Hình Ảnh</label>
                         <div class="col-sm-4">
-                            <input value="1994" type="text" class="form-control" id="" name="year">
+                            <input type="file" class="form-control" id="" name="image">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">image</label>
+                        <label class="control-label col-sm-2" for="">Số Lượng</label>
                         <div class="col-sm-4">
-                            <input value="3055.jpg" type="text" class="form-control" id="" name="image">
+                            <input type="text" class="form-control" id="" name="quantity">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">quantity</label>
-                        <div class="col-sm-4">
-                            <input value="55" type="text" class="form-control" id="" name="quantity">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="">des</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="" name="descrip">
+                        <label class="control-label col-sm-2" for="">Mô Tả</label>
+                        <div class="col-sm-10">
+                            <textarea name="post_content" id="post_content" rows="5" type="text" class="form-control" id="description"
+                                    name="descrip"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -84,4 +88,9 @@
         </div>
     </section>
     <!-- /.content -->
-</div><!-- /.content-wrapper -->@include('admin.AdminLTE.footer')
+</div><!-- /.content-wrapper -->
+<script>
+	// Thay thế <textarea id="post_content"> với CKEditor
+	CKEDITOR.replace( 'post_content' );// tham số là biến name của textarea
+</script>
+@endsection

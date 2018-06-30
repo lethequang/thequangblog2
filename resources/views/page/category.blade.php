@@ -13,7 +13,7 @@
                                 <div class="pi-img-wrapper">
                                     <img src="images/{{ $book['image'] }}" class="img-responsive" alt="">
                                     <div>
-                                        <a href="detail/{{ $book['id'] }}" class="btn">Chi Tiết</a>
+                                        <a href="book/{{ $book['slug'] }}" class="btn">Chi Tiết</a>
                                     </div>
                                 </div>
                                 <p><a href="">{{ $book['title'] }}</a></p>

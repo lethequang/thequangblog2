@@ -1,4 +1,5 @@
-@include('admin.AdminLTE.header')@include('admin.AdminLTE.sidebar')
+@extends('admin.master')
+@section('content')
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
@@ -70,4 +71,5 @@
             </div>
         </div>
     </section><!-- /.content -->
-</div><!-- /.content-wrapper -->@include('admin.AdminLTE.footer')
+</div><!-- /.content-wrapper -->
+    @endsection

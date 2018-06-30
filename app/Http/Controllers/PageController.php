@@ -52,11 +52,10 @@ class PageController extends Controller
 
 	public function getAuthor($id)
 	{
-		$author_product = Product::where('id_author', $id)
-			->paginate('9')
-		->findBySlug($id);
-		$author = Author::where('id', $id)->first();
-		return view('page.author', compact('author_product', 'author'));
+		$author_product = Product::where('id_author',$id)
+			->paginate('9');
+		$author = Author::where('id',$id)->first();
+		return view('page.author',compact('author','author_product'));
 	}
 
 
