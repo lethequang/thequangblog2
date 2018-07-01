@@ -6,7 +6,7 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Thêm Thể Loại</h3>
+                <h3 class="box-title">Thêm Tác Giả</h3>
             </div>
             <div class="box-body">
                 @if (session('error'))
@@ -19,10 +19,10 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <form class="form-horizontal" action="{{ route('category-add') }}" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" action="{{ route('author-add') }}" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="">Tên Thể Loại</label>
+                        <label class="control-label col-sm-2" for="">Tên Tác Giả</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="" name="name">
                         </div>

@@ -21,7 +21,9 @@ class Product extends Model
     protected $table='products';
     public function category(){
     	return $this->belongsTo('App\Category','id_category','id');
-    	return $this->belongsTo('App\Author','id_author','id');
+	}
+	public function author(){
+		return $this->belongsTo('App\Author','id_author','id');
 	}
 	public function bill_detail(){
     	return $this->hasMany('App\BillDetail','id_product','id');

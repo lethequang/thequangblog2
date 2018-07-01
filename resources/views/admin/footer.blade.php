@@ -1,8 +1,8 @@
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-        <b>Version</b> 2.4.0
+        <b>TheQuang.Blog</b>
     </div>
-    <strong>Copyright &copy; <a href="#"></a>.</strong> All rights reserved.
+    <strong>&copy; <a href="#"></a></strong>TheQuang38
 </footer><!-- Add the sidebar's background. This div must be placed
      immediately after the control sidebar -->
 <div class="control-sidebar-bg"></div></div><!-- ./wrapper --><!-- jQuery 3.1.1 -->

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TheQuang.Blog</title>
+    <title>Website bán sách trực tuyến - TheQuang.Blog</title>
     <base href="{{asset('')}}">
     <link href="source/css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <script src="source/js/jquery.min.js"></script>

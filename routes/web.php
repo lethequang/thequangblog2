@@ -102,9 +102,49 @@ Route::post('checkout',[
 ]);
 // End Cart
 
-// Admin
+/* Start Admin */
+Route::get('admin','AdminController@showIndex')->name('admin-index');
+
+//product
+Route::get('admin/product', 'AdminController@showListBook')->name('product-list');
 Route::get('admin/product/add','AdminController@showAddProduct');
 Route::post('admin/product/add','AdminController@saveAddProduct')->name('product-add');
+Route::get('admin/product/edit/{id}', 'AdminController@showEditProduct');
+Route::post('admin/product/edit/{id}', 'AdminController@saveEditProduct')->name('product-edit');
+Route::get('admin/product/delete/{id}', 'AdminController@deleteProduct')->name('product-delete');
 
+//category
+Route::get('admin/category','AdminController@showListCategory')->name('category-list');
 Route::get('admin/category/add','AdminController@showAddCategory');
 Route::post('admin/category/add','AdminController@saveAddCategory')->name('category-add');
+Route::get('admin/category/edit/{id}', 'AdminController@showEditCategory');
+Route::post('admin/category/edit/{id}', 'AdminController@saveEditCategory')->name('category-edit');
+Route::get('admin/category/delete/{id}', 'AdminController@deleteCategory')->name('category-delete');
+
+//author
+Route::get('admin/author','AdminController@showListAuthor')->name('author-list');
+Route::get('admin/author/add','AdminController@showAddAuthor');
+Route::post('admin/author/add','AdminController@saveAddAuthor')->name('author-add');
+Route::get('admin/author/edit/{id}', 'AdminController@showEditCategory');
+Route::post('admin/author/edit/{id}', 'AdminController@saveEditAuthor')->name('author-edit');
+Route::get('admin/author/delete/{id}', 'AdminController@deleteAuthor')->name('author-delete');
+
+//bill
+Route::get('admin/bill','AdminController@showListBill')->name('bill-list');
+Route::get('admin/bill/{id}','AdminController@showDetailBill')->name('bill-detail');
+
+//customer
+Route::get('admin/customer','AdminController@showListCustomer')->name('customer-list');
+
+//user
+Route::get('admin/user','AdminController@showListUser')->name('user-list');
+
+//news
+Route::get('admin/news','AdminController@showListNews')->name('news-list');
+Route::get('admin/news/add','AdminController@showAddNews');
+Route::post('admin/news/add','AdminController@saveAddNews')->name('news-add');
+
+//feedback
+Route::get('admin/feedback','AdminController@showListFeedback')->name('feedback-list');
+
+/*End Admin*/

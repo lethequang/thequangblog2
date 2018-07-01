@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="author/{{ $book['id_author'] }}">{{ $book['title'] }}</a>
+                    <a href="author/{{ $book['id_author'] }}">{{ $book->author->name }}</a>
                     <p>{{ number_format($book['price']) }} VNĐ</p>
                 </li>
                 @endforeach
