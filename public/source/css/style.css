@@ -25,6 +25,24 @@ h1,h2,h3,h4,h5,h6,label,p{
 
 /*custom by LTQ*/
 
+.search1 {
+	width: 130px;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	font-size: 15px;
+	background-color: white;
+	background-image: url('../images/searchicon.png');
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	padding: 12px 20px 12px 40px;
+	-webkit-transition: width 0.4s ease-in-out;
+	transition: width 0.4s ease-in-out;
+}
+
+.search1:focus {
+	width: 100%;
+}
 
 .single {
 	padding: 30px 15px;

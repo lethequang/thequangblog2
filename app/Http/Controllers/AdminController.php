@@ -18,6 +18,13 @@ use function Sodium\compare;
 
 class AdminController extends Controller
 {
+	public function __construct() {
+		$this->middleware('admin',['except' => 'getLogout']);
+	}
+	public function getLogout() {
+		Auth::guard('admin')->logout();
+		return redirect('admin/login');
+	}
 	public function showIndex(){
 		$product = Product::all();
 		$author = Author::all();

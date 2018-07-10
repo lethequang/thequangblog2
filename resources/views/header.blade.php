@@ -12,6 +12,7 @@
     <!--theme-style-->
     <link href="source/css/style.css" rel="stylesheet" type="text/css" media="all"/>
     <!--//theme-style-->
+    <link rel="shortcut icon" type="image/png" href="source/images/favicon.ico"/>
     <meta HTTP-EQUIV="Content-Language" CONTENT="vi">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -86,9 +87,9 @@
             <a href="index.html"><img src="" alt=""></a>
         </div>
         <div class="header-top-on">
-            <ul class="social-in">
-
-            </ul>
+           <form action="{{ route('search') }}" method="get">
+            <input type="text" class="search1" name="key" placeholder="Tìm kiếm..">
+           </form>
         </div>
         <div class="clearfix"></div>
     </div>

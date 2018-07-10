@@ -67,4 +67,10 @@ class PageController extends Controller
 		$author = Author::where('id', $product->id_author)->first();
 		return view('page.detail', compact('product', 'type_product', 'category', 'author','book_author'));
 	}
+	public function getSearch(Request $request){
+		$product = Product::where('title','like','%'.$request->key.'%')
+			->orWhere('price',$request->key)
+			->get();
+		return view('page.search',compact('product'));
+	}
 }

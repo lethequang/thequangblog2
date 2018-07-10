@@ -87,10 +87,12 @@ class AuthController extends Controller
 		}
 	}
 
+
 	public function showChangePassForm()
 	{
 		return view('page.changepassword');
 	}
+
 
 	public function doChangePass(Request $request)
 	{
@@ -125,10 +127,14 @@ class AuthController extends Controller
 
 	}
 
+
 	public function getLogout()
 	{
 		Auth::logout();
 		return redirect()->route('home');
 	}
+
+
+	// admin
 
 }

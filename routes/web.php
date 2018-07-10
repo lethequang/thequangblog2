@@ -44,6 +44,10 @@ Route::get('book/{slug}',[
 	'as'=>'detail',
 	'uses'=>'PageController@getDetail'
 ]);
+Route::get('search',[
+	'as'=>'search',
+	'uses'=>'PageController@getSearch'
+]);
 
 // End List Page
 
@@ -103,6 +107,8 @@ Route::post('checkout',[
 // End Cart
 
 /* Start Admin */
+Route::get('admin/login','AuthController@getAdminLogin');
+Route::get('admin/login','AuthCOntroller@postAdminLogin')->name('admin-login');
 Route::get('admin','AdminController@showIndex')->name('admin-index');
 
 //product
@@ -148,3 +154,4 @@ Route::post('admin/news/add','AdminController@saveAddNews')->name('news-add');
 Route::get('admin/feedback','AdminController@showListFeedback')->name('feedback-list');
 
 /*End Admin*/
+
