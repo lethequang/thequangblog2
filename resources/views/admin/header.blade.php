@@ -46,7 +46,7 @@
                 <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <li><p class="navbar-text">Xin Chào: </p></li>
+                    <li><p class="navbar-text">Xin Chào: <span style="color: white">{{ Auth::guard('admin')->user()->username  }}</span></p></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <span class="caret"></span>
@@ -57,15 +57,7 @@
                                 <a href="/changepassword">Đổi mật khẩu</a>
                             </li>
                             <li>
-                                <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    Đăng xuất
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
+                                <a href="{{ route('admin-logout') }}">Đăng xuất</a>
                             </li>
                         </ul>
                     </li>

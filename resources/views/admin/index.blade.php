@@ -66,7 +66,7 @@
                         <div class="icon">
                             <i class="fa fa-shopping-cart"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('bill-list') }}" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -83,7 +83,7 @@
                         <div class="icon">
                             <i class="fa fa-male"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('customer-list') }}" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -98,7 +98,7 @@
                         <div class="icon">
                             <i class="fa fa-group"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('user-list') }}" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -113,7 +113,7 @@
                         <div class="icon">
                             <i class="fa fa-newspaper-o"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('news-list') }}" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -128,7 +128,7 @@
                         <div class="icon">
                             <i class="fa fa-smile-o"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('feedback-list') }}" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->

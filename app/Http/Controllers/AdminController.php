@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App;
+use PDF;
 use App\Author;
 use App\Bill;
 use App\BillDetail;
@@ -18,13 +20,19 @@ use function Sodium\compare;
 
 class AdminController extends Controller
 {
-	public function __construct() {
+
+	/*public function __construct() {
 		$this->middleware('admin',['except' => 'getLogout']);
 	}
 	public function getLogout() {
 		Auth::guard('admin')->logout();
 		return redirect('admin/login');
+	}*/
+
+	public function __construct(){
+		$this->middleware('admin');
 	}
+
 	public function showIndex(){
 		$product = Product::all();
 		$author = Author::all();
@@ -179,8 +187,20 @@ class AdminController extends Controller
 		return view('admin.bill.list',compact('bills'));
 	}
 	public function showDetailBill($id){
+		$bill = Bill::where('id',$id)->first();
 		$bill_details = BillDetail::where('id_bill',$id)->get();
 		$customer = Customer::where('id',$id)->first();
-		return view('admin.bill.detail',compact('bill_details','customer'));
+		return view('admin.bill.detail',compact('bill_details','customer','bill'));
+	}
+	public function exportBill($id){
+		$bill = Bill::where('id',$id)->first();
+		$bill_details = BillDetail::where('id_bill',$id)->get();
+		$customer = Customer::where('id',$id)->first();
+//		$pdf = PDF::loadView('admin.bill.invoice',  compact('bill_details','customer'));
+//		return $pdf->download('invoice.pdf');
+
+		$pdf = App::make('dompdf.wrapper');
+		$pdf->loadHTML(view('admin.bill.invoice',compact('bill_details','customer','bill')))->setPaper('a4', 'landscape');
+		return $pdf->stream();
 	}
 }

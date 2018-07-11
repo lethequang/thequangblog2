@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+	// Trang chu
 	public function getIndex()
 	{
 		$product = Product::orderBy('id', 'DESC')

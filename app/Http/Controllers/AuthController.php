@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Session;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
+
 	public function getRegister()
 	{
 		if (Auth::check()) {
@@ -136,5 +138,26 @@ class AuthController extends Controller
 
 
 	// admin
+
+	public function getAdminLogin()
+	{
+		return view('admin.login');
+	}
+
+
+	public function postAdminLogin(Request $request)
+	{
+		if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password])) {
+			return redirect()->intended(route('admin-index'));
+		} else {
+			return redirect()->back()->with('message', 'Tài khoản hoặc mật khẩu không chính xác');
+		}
+	}
+	public function getAdminLogout()
+	{
+		Auth::guard('admin')->logout();
+		return redirect()->route('admin-login');
+	}
+
 
 }

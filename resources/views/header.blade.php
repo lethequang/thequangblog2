@@ -84,7 +84,7 @@
     </div><!---->
     <div class="header-top">
         <div class="logo">
-            <a href="index.html"><img src="" alt=""></a>
+            <a href="#"><img src="source/images/logo-thequang3.png" alt="" style="width: 60%"></a>
         </div>
         <div class="header-top-on">
            <form action="{{ route('search') }}" method="get">

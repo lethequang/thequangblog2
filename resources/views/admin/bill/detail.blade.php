@@ -6,7 +6,7 @@
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Chi Tiết Đơn Hàng: #</h3>
+                    <h3 class="box-title">Chi Tiết Đơn Hàng: #{{ $bill->id }}</h3>
                 </div>
                 <div class="box-body">
                     <div class="panel panel-default">
@@ -17,6 +17,7 @@
                                 <li>Họ và tên: <span class="label label-info">{{ $customer->full_name }}</span></li>
                                 <li>Số điện thoại:<span class="label label-info">{{ $customer->phone }}</span></li>
                                 <li>Địa chỉ email:<span class="label label-info">{{ $customer->email }}</span></li>
+                                <li>Địa chỉ giao hàng:<span class="label label-info">{{ $customer->address }}</span></li>
                                 <li>Ghi chú:<span class="label label-info">{{ $customer->note }}</span></li>
                             </ul>
                         </div>
@@ -67,6 +68,7 @@
                             <label class="radio-inline"><input type="radio" value=""><span class="label label-danger">Đã bị hủy</span></label>
                         </div>
                             <button class="btn btn-success">Áp Dụng</button>
+                            <button formaction="{{ route('export-bill',$bill->id) }}" class="btn btn-primary">Xuất Hóa Đơn</button>
                         </form>
                     </div>
                 </div>
