@@ -1,5 +1,5 @@
 <?php
-
+/*
 namespace App;
 
 class Cart
@@ -8,7 +8,7 @@ class Cart
 	public $totalQty = 0;
 	public $totalPrice = 0;
 
-	public function __construct($oldCart){
+	public function __construct($oldCart=''){
 		if($oldCart){
 			$this->items = $oldCart->items;
 			$this->totalQty = $oldCart->totalQty;
@@ -48,4 +48,5 @@ class Cart
 		$this->totalPrice -= $this->items[$id]['price'];
 		unset($this->items[$id]);
 	}
-}
+}*/
+?>;

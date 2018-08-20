@@ -11,11 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[
+	'as'=>'home',
+	'uses'=>'PageController@getIndex'
+]);
 
 // List Page
+
 Route::get('index',[
 	'as'=>'home',
 	'uses'=>'PageController@getIndex'
@@ -84,7 +86,7 @@ Route::get('logout',[
 // End Auth Session
 
 // Cart
-Route::get('add-to-cart/{id}',[
+Route::post('add-to-cart',[
 	'as'=>'addtocart',
 	'uses'=>'CartController@getAddToCart'
 ]);
@@ -104,6 +106,7 @@ Route::post('checkout',[
 	'as'=>'checkout',
 	'uses'=>'CartController@postCheckout'
 ]);
+
 // End Cart
 
 /* Start Admin */

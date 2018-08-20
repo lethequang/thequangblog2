@@ -2,28 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use App\Product;
-use App\Cart;
+//use App\Cart;
 use App\Customer;
 use App\Bill;
 use App\BillDetail;
 use Session;
 use Hash;
+use Cart;
+use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-	public function getAddToCart(Request $request, $id)
+
+	public function getAddToCart(Request $request)
 	{
-		$product = Product::find($id);
-		$oldCart = Session('cart') ? Session::get('cart') : NULL;
-		$cart = new Cart($oldCart);
-		$cart->add($product, $id);
-		$request->Session()->put('cart', $cart);
-		return redirect()->back();
+		$product_id = $request->get('product_id');
+		$qty = $request->get('qty');
+		$product = Product::find($product_id);
+		//Cart::add($product_id, $product->title, 1, $product->price );
+		$cartInfo = array('id' => $product_id, 'name' => $product->title, 'qty' => $qty, 'price' => $product->price, ['image'=> $product->image]);
+		//dd($cartInfo);
+		Cart::add($cartInfo);
+		$cartItems = Cart::content();
+		return view('page.cart',compact('cartItems'));
 	}
-
-
 	public function getDelItemCart(Request $request, $id)
 	{
 		$oldCart = Session::has('cart') ? Session::get('cart') : NULL;
@@ -36,44 +40,23 @@ class CartController extends Controller
 		}
 		//return redirect()->back();
 	}
-
-
 	public function getCart()
 	{
-		if (Session::has('cart')) {
-			$cart = Session::get('cart');
-			foreach ($cart->items as $key => $value) {
-			}
-			return view('page.cart', [
-				'cart' => $cart,
-				'product_cart' => $cart->items,
-				'totalPrice' => $cart->totalPrice,
-				'totalQty' => $cart->totalQty,
-			]);
-		}
-		else
-			return view('page.cart');
+		$cartItems = Cart::content();
+		return view('page.cart',compact('cartItems'));
 	}
 
 
 	public function getCheckout()
 	{
-		if(Session::has('cart')){
-			$cart = Session::get('cart');
-			return view('page.checkout',[
-				'cart' => $cart,
-				'product_cart' => $cart->items,
-				'totalPrice' => $cart->totalPrice,
-				'totalQty' => $cart->totalQty,
-			]);
-		}
-		else
-			return view('page.cart');
+		$cartItems = Cart::content();
+		//dd($cartItems);
+		return view('page.checkout',compact('cartItems'));
 	}
 
 	public function postCheckout(Request $request)
 	{
-		$cart = Session::get('cart');
+		$cartItems = Cart::content();
 		$customer = new Customer;
 		$customer->full_name = $request->full_name;
 		$customer->email = $request->email;
@@ -83,22 +66,23 @@ class CartController extends Controller
 		$customer->save();
 
 		$bill = new Bill;
+		$total = Cart::total();
 		$bill->id_customer = $customer->id;
 		$bill->note = $request->note;
 		$bill->date_order = date('Y-m-d');
 		$bill->payment = $request->payment;
-		$bill->total = $cart->totalPrice;
+		$bill->total = $total;
 		$bill->save();
 
-		foreach ($cart->items as $key => $value) {
+		foreach ($cartItems as $item) {
 			$bill_detail = new BillDetail;
 			$bill_detail->id_bill = $bill->id;
-			$bill_detail->id_product = $key;
-			$bill_detail->quantity = $value['qty'];
-			$bill_detail->price = $value['price'];
+			$bill_detail->id_product = $item->id;
+			$bill_detail->quantity = $item->qty;
+			$bill_detail->price = $item->price;
 			$bill_detail->save();
 		}
-		Session::forget('cart');
+		Cart::destroy();
 		return redirect()->back()->with('message', 'Đặt hàng thành công. Đơn hàng đang được xử lý !');
 
 	}

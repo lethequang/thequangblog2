@@ -119,26 +119,26 @@
         </div>
         <div class="cart icon1 sub-icon1">
             <h6>Giỏ Hàng: <span class="item"><span
-                            id="tongsl">@if(Session::has('cart')){{ $totalQty }}</span> sản phẩm @else
+                            id="tongsl">@if(count($cartItems)){{ count($cartItems) }}</span> sản phẩm @else
                         Trống @endif</span>
-                @if(Session::has('cart'))
-                    <span class="rate" value="{{ $totalPrice }}">{{ number_format($totalPrice) }} VNĐ</span>
+                @if(count($cartItems))
+                    <span class="rate" value="{{ Cart::total() }}">{{ Cart::total() }} VNĐ</span>
                     <li><a href="{{ route('cart') }}" class="round"> </a>
                         <ul class="sub-icon1 list">
                             <h3></h3>
                             <div class="shopping_cart">
-                                @foreach($product_cart as $product)
-                                    <div class="hidecart cart_box" id="hidecart{{ $product['item']['id'] }}">
+                                @foreach($cartItems as $item)
+                                    <div class="hidecart cart_box" id="">
                                         <div class="message">
-                                            <a value="{{ $product['item']['id'] }}" soluong="{{ $product['qty'] }}"
+                                            <a value="" soluong=""
                                                     class="delheader alert-close"></a>
-                                            <div class="list_img"><img src="images/{{ $product['item']['image'] }}"
+                                            <div class="list_img"><img src="images/"
                                                         class="img-responsive" alt=""></div>
-                                            <div class="list_desc"><h4><a href="#">{{ $product['item']['title'] }}</a>
+                                            <div class="list_desc"><h4><a href="#">{{ $item->name }}</a>
                                                 </h4>
-                                                <h5>Số lượng: {{ $product['qty'] }}</h5>
-                                                <h5>Đơn giá: <span id="dongia{{ $product['item']['id'] }}"
-                                                            value="{{ $product['item']['price'] }}">{{ number_format($product['item']['price']) }}</span>
+                                                <h5>Số lượng: <span id="soluongsp">{{ $item->qty }}</span></h5>
+                                                <h5>Đơn giá: <span id=""
+                                                            value="">{{ number_format($item->price) }}</span>
                                                 </h5>
                                             </div>
                                             <div class="clearfix"></div>
@@ -156,31 +156,4 @@
         </div>
         <div class="clearfix"></div>
     </div>
-    <script>
-		$(document).ready(function ($) {
-			$('.delheader').click(function () {
-				var id = $(this).attr('value');
-				var route = "{{ route('del-item-cart',':id_pro') }}";
-				route = route.replace(':id_pro', id);
-				var soluong = $(this).attr("soluong");
-				var dongia = $('#dongia' + id).attr('value')
-				var tongdongia = $('.rate').attr('value');
 
-				$.ajax({
-					url: route,
-					type: 'get',
-					data: {id: id},
-					success: function () {
-						var tongsl = $('#tongsl').html();
-						$("#tongsl").html(parseInt(tongsl) - parseInt(soluong));
-						$('.rate').html(parseInt(tongdongia) - (parseInt(soluong) * parseInt(dongia)) + ' VNĐ ');
-						$('.rate').attr('value', parseInt(tongdongia) - (parseInt(soluong) * parseInt(dongia)));
-						$('#hidecart' + id).hide();
-					},
-					error: function (data) {
-						console.log(data)
-					}
-				})
-			})
-		});
-    </script>

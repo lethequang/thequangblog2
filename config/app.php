@@ -140,8 +140,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-
-
+		Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
 		Cviebrock\EloquentSluggable\ServiceProvider::class,
 		Laravel\Socialite\SocialiteServiceProvider::class,
 		Barryvdh\DomPDF\ServiceProvider::class,
@@ -201,6 +200,7 @@ return [
 
     'aliases' => [
 
+		'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
 		'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 		'PDF' => Barryvdh\DomPDF\Facade::class,
 

@@ -46,8 +46,14 @@
                                 <p><a href="">{{ $book['title'] }}</a></p>
                                 <div class="pi-price">{{ number_format($book['price']) }}</div>
                                 <p>VNĐ</p>
-                                <a href="{{ route('addtocart',$book['id']) }}" class="btn add2cart">Thêm Vào Giỏ
-                                    Hàng</a>
+                                <form action="{{ route('addtocart') }}" method="post">
+                                    <input type="hidden" name="product_id" value="{{ $book['id'] }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="title" value="{{ $book['title'] }}">
+                                    <input type="hidden" name="qty" value="1">
+                                    <button type="submit" class="btn add2cart">Thêm Vào Giỏ
+                                        Hàng</button>
+                                </form>
                                 <div class="sticker sticker-new"></div>
                             </div>
                         </div>

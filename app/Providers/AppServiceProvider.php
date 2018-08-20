@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use App\Category;
 use App\Author;
-use App\Cart;
-
+use Cart;
+//use App\Cart;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         view()->composer('sidebar',function ($view){
         	$product_cat = Category::all();
 			$product_author = Author::all();
@@ -26,11 +27,8 @@ class AppServiceProvider extends ServiceProvider
 				->with('product_author',$product_author);
 		});
         view()->composer('header',function ($view){
-        	if (Session('cart')){
-        		$oldCart = Session::get('cart');
-        		$cart = new Cart($oldCart);
-        		$view->with(['cart'=>Session::get('cart'),'product_cart'=>$cart->items,'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
-			}
+			$cartItems = Cart::content();
+			$view->with('cartItems',$cartItems);
 		});
 
     }

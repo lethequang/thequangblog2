@@ -29,7 +29,17 @@
                     <div class="available">
                         <span><?php echo "$product->description"; ?></span>
                     </div>
-                    <a href="{{ route('addtocart',$product->id) }}" class="cart-an ">Thêm Vào Giỏ Hàng</a>
+
+                    <form action="{{ route('addtocart') }}" method="post">
+                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="title" value="{{ $product->title }}">
+                        <input class="cart-to" name="qty" type="number" id=qty">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-shopping-cart"></i>
+                            Thêm Vào Giỏ Hàng
+                        </button>
+                    </form>
                     <div class="share">
                         <h4>Chia sẻ:</h4>
                         <ul class="share_nav">
@@ -45,22 +55,92 @@
             </div>
             <ul id="flexiselDemo1">
                 @foreach($type_product as $book)
-                <li>
-                    <div class="grid-flex">
-                        <div class="product-item">
-                            <div class="pi-img-wrapper">
-                                <img src="images/{{ $book['image'] }}" class="img-responsive" alt="">
-                                <div>
-                                    <a href="book/{{ $book['slug'] }}" class="btn">Chi Tiết</a>
+                    <li>
+                        <div class="grid-flex">
+                            <div class="product-item">
+                                <div class="pi-img-wrapper">
+                                    <img src="images/{{ $book['image'] }}" class="img-responsive" alt="">
+                                    <div>
+                                        <a href="book/{{ $book['slug'] }}" class="btn">Chi Tiết</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <a href="author/{{ $book['id_author'] }}">{{ $book->author->name }}</a>
-                    <p>{{ number_format($book['price']) }} VNĐ</p>
-                </li>
+                        <a href="author/{{ $book['id_author'] }}">{{ $book->author->name }}</a>
+                        <p>{{ number_format($book['price']) }} VNĐ</p>
+                    </li>
                 @endforeach
             </ul>
+
+            <script src="source/js/jquery.min.js"></script>
+            {{--<script>
+				$(document).ready(function ($) {
+					$('.addcart').click(function () {
+						var id = $(this).attr('value');
+						var route = "{{ route('addtocart',':id_pro') }}";
+						route = route.replace(':id_pro', id);
+						var sl = $('#sl').attr('value');
+						var dongia = $('#dongia' + id).attr('value');
+						var tongdongia = $('.rate').attr('value');
+
+						$.ajax({
+							url: route,
+							type: 'get',
+							data: {id: id},
+							success: function () {
+								var tongsl = $('#tongsl').html();
+								if (isNaN(tongsl)) {
+									tongsl = 0;
+									$("#tongsl").html(parseInt(tongsl) + parseInt(sl));
+									$('.rate').html(parseInt(tongdongia) + (parseInt(sl) * parseInt(dongia)) + ' VNĐ ');
+									$('.rate').attr('value', parseInt(tongdongia) + (parseInt(sl) * parseInt(dongia)));
+								}
+								else {
+									$("#tongsl").html(parseInt(tongsl) + parseInt(sl));
+									$('.rate').html(parseInt(tongdongia) + (parseInt(sl) * parseInt(dongia)) + ' VNĐ ');
+									$('.rate').attr('value', parseInt(tongdongia) + (parseInt(sl) * parseInt(dongia)));
+								}
+								var soluongsp = $('#soluongsp').html();
+								$('#soluongsp').html(parseInt(soluongsp) + parseInt(sl));
+							},
+							error: function (data) {
+								console.log(data);
+							}
+						})
+					})
+				});
+
+				$(document).ready(function ($) {
+					$('.delheader').click(function () {
+						var id = $(this).attr('value');
+						var route = "{{ route('del-item-cart',':id_pro') }}";
+						route = route.replace(':id_pro', id);
+						var soluong = $(this).attr("soluong");
+						var dongia = $('#dongia' + id).attr('value')
+						var tongdongia = $('.rate').attr('value');
+
+						$.ajax({
+							url: route,
+							type: 'get',
+							data: {id: id},
+							success: function () {
+								var tongsl = $('#tongsl').html();
+								$("#tongsl").html(parseInt(tongsl) - parseInt(soluong));
+								$('.rate').html(parseInt(tongdongia) - (parseInt(soluong) * parseInt(dongia)) + ' VNĐ ');
+								$('.rate').attr('value', parseInt(tongdongia) - (parseInt(soluong) * parseInt(dongia)));
+								$('#hidecart' + id).hide();
+							},
+							error: function (data) {
+								console.log(data)
+							}
+						})
+					})
+				});
+
+
+            </script>
+
+
             <script type="text/javascript">
 				$(window).load(function () {
 					$("#flexiselDemo1").flexisel({
@@ -86,7 +166,7 @@
 						}
 					});
 				});
-            </script>
+            </script>--}}
             <script type="text/javascript" src="source/js/jquery.flexisel.js"></script>
         </div>
         @include('sidebar')

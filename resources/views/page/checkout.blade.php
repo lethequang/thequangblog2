@@ -66,23 +66,23 @@
                 <div class="col-md-5 col-md">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Giỏ Hàng Của Bạn: {{ Session('cart')->totalQty . ' Sản Phẩm'}}</h3>
+                            <h3 class="panel-title">Giỏ Hàng Của Bạn: {{ count($cartItems) . ' Sản Phẩm'}}</h3>
                         </div>
                         <div class="panel-body">
-                            @foreach($product_cart as $product)
+                            @foreach($cartItems as $item)
                                 <div class="thumbnail">
-                                    <img src="images/{{ $product['item']['image'] }}" alt="" style="max-width: 100px;">
+                                    <img src="images/{{ $item->image }}" alt="" style="max-width: 100px;">
                                     <div class="caption text-center">
-                                        <h5>{{ $product['item']['title'] }}</h5>
-                                        <p>Số lượng: {{ $product['qty'] }}</p>
-                                        <p>Giá: {{ number_format($product['price']) . 'VNĐ' }}</p>
+                                        <h5>{{ $item->name }}</h5>
+                                        <p>Số lượng: {{ $item->qty }}</p>
+                                        <p>Giá: {{ $item->price . 'VNĐ' }}</p>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                         <div class="panel-footer">
                             <h3 class="panel-title">Tổng
-                                Tiền: {{ number_format(Session('cart')->totalPrice) . 'VNĐ' }}</h3>
+                                Tiền: {{ Cart::total() . 'VNĐ' }}</h3>
                         </div>
                     </div>
                 </div>
