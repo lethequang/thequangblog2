@@ -65,6 +65,10 @@ class CartController extends Controller
 		$customer->note = $request->note;
 		$customer->save();
 
+		if(!$customer){
+			die("Fail");
+		}
+
 		$bill = new Bill;
 		$total = Cart::total();
 		$bill->id_customer = $customer->id;

@@ -57,8 +57,9 @@ class TestController extends Controller
 					'sanpham' => $products
 				]
 			]);
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			return response()->json([
+				'status' => 400,
 				'message' => 'fail',
 			]);
 			DB::rollback();
