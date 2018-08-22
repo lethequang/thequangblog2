@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Bill;
 use App\Customer;
@@ -23,31 +25,43 @@ class TestController extends Controller
     	$bills = Bill::get();
     	return response()->json($bills);
 	}
+
 	public function addBill(Request $request){
-		$customer = $this->customer->create([
-			'full_name' => $request->get('full_name'),
-			'email' => $request->get('email'),
-			'address' => $request->get('address'),
-			'phone' => $request->get('phone'),
-			'note' => $request->get('note'),
-		]);
-		$bill = $this->bill->create([
-			'id_customer' => $customer->id,
-			'note' => $request-> get('note'),
-			'date_order' =>  date('Y-m-d'),
-			'payment' => $request->payment,
-			'total' => ($request->get('quantity') * $request->get('price')),
-		]);
-		$bill_detail = $this->bill_detail->create([
-			'id_bill' =>$bill->id,
-			'id_product' => $request->get('id_product'),
-			'quantity' => $request->get('quantity'),
-			'price' => $request->get('price'),
-		]);
-		return response()->json([
-			'status'=> 200,
-			'message'=> 'Bill was created successfully',
-			'data'=> [$customer, $bill, $bill_detail]
-		]);
+		DB::beginTransaction();
+		try {
+			$customer = $this->customer->create($request->get('khachhang'));
+			$products = $request->get('sanpham');
+			$total = 0;
+			foreach ($products as $product) {
+				$subtotal = $product['quantity'] * $product['price'];
+				$total += $subtotal;
+			}
+			$bill = $this->bill->create([
+				'id_customer' => $customer->id,
+				'date_order' => date('Y-m-d'),
+				'total' => $total,
+				'note' => $request->input('hoadon.note'),
+				'payment' => $request->input('hoadon.payment')
+			]);
+			foreach ($products as $product) {
+				$product['id_bill'] = $bill->id;
+				$this->bill_detail->create($product);
+			}
+			DB::commit();
+			return response()->json([
+				'status' => 200,
+				'message' => 'Success',
+				'data' => [
+					'khachhang' => $customer,
+					'hoadon' => $bill,
+					'sanpham' => $products
+				]
+			]);
+		} catch (Exception $e) {
+			return response()->json([
+				'message' => 'fail',
+			]);
+			DB::rollback();
+		}
 	}
 }

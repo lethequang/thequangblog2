@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/bill/getbill','TestController@getBill');
 
 Route::post('/bill/add','TestController@addBill');
+Route::post('/bills/add','ApiController@addBill');
