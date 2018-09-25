@@ -132,9 +132,9 @@
                                         <div class="message">
                                             <a value="" soluong=""
                                                     class="delheader alert-close"></a>
-                                            <div class="list_img"><img src="images/"
+                                            <div class="list_img"><img src="images"
                                                         class="img-responsive" alt=""></div>
-                                            <div class="list_desc"><h4><a href="#">{{ $item->name }}</a>
+                                            <div class="list_desc"><h4><p class="textcut-overflow" href="book/{{ $item->slug }}">{{ $item->name }}</p>
                                                 </h4>
                                                 <h5>Số lượng: <span id="soluongsp">{{ $item->qty }}</span></h5>
                                                 <h5>Đơn giá: <span id=""

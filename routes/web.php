@@ -11,14 +11,9 @@
 |
 */
 
-Route::get('/',[
-	'as'=>'home',
-	'uses'=>'PageController@getIndex'
-]);
 
 // List Page
-
-Route::get('index',[
+Route::get('/',[
 	'as'=>'home',
 	'uses'=>'PageController@getIndex'
 ]);
@@ -90,7 +85,11 @@ Route::post('add-to-cart',[
 	'as'=>'addtocart',
 	'uses'=>'CartController@getAddToCart'
 ]);
-Route::get('del-item-cart/{id}',[
+Route::get('update-cart',[
+	'as'=>'updatecart',
+	'uses'=>'CartController@getAddToCart'
+]);
+Route::get('del-item-cart',[
 	'as'=>'del-item-cart',
 	'uses'=>'CartController@getDelItemCart'
 ]);

@@ -2,17 +2,18 @@
 @section('content')
     <div class="content">
         <h4 class="title">Chi Tiết Giỏ Hàng</h4>
+
         <div class="row">
-            <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <div class="container">
                 @if(count($cartItems))
                     <table id="cart" class="table table-hover table-condensed">
                         <thead>
                         <tr>
-                            <th style="width:50%">Sách</th>
-                            <th style="width:10%">Đơn Giá</th>
-                            <th style="width:8%">Số Lượng</th>
-                            <th style="width:22%" class="text-center">Thành Tiền</th>
-                            <th style="width:10%"></th>
+                            <th style="width:45%" class="text-center">Sách</th>
+                            <th style="width:10%" class="text-center">Đơn Giá</th>
+                            <th style="width:15%" class="text-center">Số Lượng</th>
+                            <th style="width:20%" class="text-center">Thành Tiền</th>
+                            <th style="width:10%" class="text-center"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -36,24 +37,28 @@
                                 </td>
                                 <td data-th="Quantity">
                                     <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <a href="{{ url("update-cart?product_id=$item->id&decrease=1") }}"
+                                                class="quantity-left-minus btn btn-danger btn-number" data-type="minus"
+                                                data-field="">
+                                          <span class="glyphicon glyphicon-minus"></span>
+                                        </a>
+                                    </span> <input type="text" id="quantity" name="quantity"
+                                                class="form-control input-number text-center" value="{{ $item->qty }}">
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-danger btn-number" data-type="minus" data-field="quant[2]">
-                                                <span class="glyphicon glyphicon-minus"></span>
-                                            </button>
-                                        </span>
-                                        <input type="number" class="form-control text-center" value="{{$item->qty}}">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[2]">
-                                                <span class="glyphicon glyphicon-plus"></span>
-                                            </button>
-                                        </span>
+                                        <a href="{{ url("update-cart?product_id=$item->id&increment=1") }}"
+                                                class="quantity-right-plus btn btn-success btn-number" data-type="plus"
+                                                data-field="">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </a>
+                                    </span>
                                     </div>
                                 </td>
                                 <td data-th="Subtotal" class="text-center">{{ number_format($item->subtotal) }}
                                     VNĐ
                                 </td>
                                 <td class="actions" data-th="">
-                                    <a value="" class="del btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+                                    <a href="{{ url("del-item-cart?$item->id") }}" class="del btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -75,7 +80,8 @@
                         </tfoot>
                     </table>
                 @else
-                    <p>Không có sản phẩm nào trong giỏ hàng</p>
+                    <div class="alert alert-danger"><h4 class="text-center">Bạn không có sản phẩm nào trong giỏ hàng. Vui lòng
+                            quay lại <a href="{{ route('home') }}"> Trang Chủ</a> để đặt mua </h4></div>
                 @endif
             </div>
         </div>

@@ -11,41 +11,67 @@ use App\BillDetail;
 use Session;
 use Hash;
 use Cart;
-use Illuminate\Http\Request;
+use Request;
 
 class CartController extends Controller
 {
 
-	public function getAddToCart(Request $request)
+	public function getAddToCart()
 	{
-		$product_id = $request->get('product_id');
-		$qty = $request->get('qty');
-		$product = Product::find($product_id);
-		//Cart::add($product_id, $product->title, 1, $product->price );
-		$cartInfo = array('id' => $product_id, 'name' => $product->title, 'qty' => $qty, 'price' => $product->price, ['image'=> $product->image]);
-		//dd($cartInfo);
-		Cart::add($cartInfo);
+		if (Request::isMethod('post')) {
+			$product_id = Request::get('product_id');
+			$qty = Request::get('qty');
+			$product = Product::find($product_id);
+			$cartInfo = [
+				'id' => $product_id,
+				'name' => $product->title,
+				'qty' => $qty,
+				'price' => $product->price,
+				['image' => $product->image]
+			];
+			//dd($cartInfo);
+			Cart::add($cartInfo);
+		}
+		//increment the quantity
+		if (Request::get('product_id') && (Request::get('increment')) == 1) {
+			$rows = Cart::search(function($key, $value) {
+				return $key->id == Request::get('product_id');
+			});
+			$item = $rows->first();
+			Cart::update($item->rowId, $item->qty + 1);
+		}
+
+		//decrease the quantity
+		if (Request::get('product_id') && (Request::get('decrease')) == 1) {
+			$rows = Cart::search(function($key, $value) {
+				return $key->id == Request::get('product_id');
+			});
+			$item = $rows->first();
+			Cart::update($item->rowId, $item->qty - 1);
+		}
 		$cartItems = Cart::content();
+		//dd($cartItems);
 		return view('page.cart',compact('cartItems'));
 	}
-	public function getDelItemCart(Request $request, $id)
+
+	public function getDelItemCart()
 	{
-		$oldCart = Session::has('cart') ? Session::get('cart') : NULL;
-		$cart = new Cart($oldCart);
-		$cart->removeItem($id);
-		if (count($cart->items) > 0) {
-			Session::put('cart', $cart);
-		} else {
-			Session::forget('cart');
-		}
-		//return redirect()->back();
+		$rows = Cart::search(function($cartItem, $rowId) {
+			$cartItem->id == Request::get('product_id');
+			$rowId = $cartItem->rowId;
+			return $rowId;
+			//dd($rowId);
+		});
+		$item = $rows->first();
+		Cart::remove($item->rowId);
+		return redirect()->back();
 	}
+
 	public function getCart()
 	{
 		$cartItems = Cart::content();
 		return view('page.cart',compact('cartItems'));
 	}
-
 
 	public function getCheckout()
 	{
@@ -54,15 +80,15 @@ class CartController extends Controller
 		return view('page.checkout',compact('cartItems'));
 	}
 
-	public function postCheckout(Request $request)
+	public function postCheckout()
 	{
 		$cartItems = Cart::content();
 		$customer = new Customer;
-		$customer->full_name = $request->full_name;
-		$customer->email = $request->email;
-		$customer->address = $request->address;
-		$customer->phone = $request->phone;
-		$customer->note = $request->note;
+		$customer->full_name = Request::get('full_name');
+		$customer->email = Request::get('email');
+		$customer->address = Request::get('address');
+		$customer->phone = Request::get('phone');
+		$customer->note = Request::get('note');
 		$customer->save();
 
 		if(!$customer){
@@ -72,9 +98,9 @@ class CartController extends Controller
 		$bill = new Bill;
 		$total = Cart::total();
 		$bill->id_customer = $customer->id;
-		$bill->note = $request->note;
+		$bill->note = Request::get('note');
 		$bill->date_order = date('Y-m-d');
-		$bill->payment = $request->payment;
+		$bill->payment = Request::get('payment');
 		$bill->total = $total;
 		$bill->save();
 
@@ -87,7 +113,7 @@ class CartController extends Controller
 			$bill_detail->save();
 		}
 		Cart::destroy();
-		return redirect()->back()->with('message', 'Đặt hàng thành công. Đơn hàng đang được xử lý !');
+		return redirect()->back()->with('message', 'Đặt hàng thành công. Đơn hàng đang được xử lý!');
 
 	}
 }
