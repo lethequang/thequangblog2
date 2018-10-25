@@ -22,7 +22,7 @@
                                 <td data-th="Product">
                                     <div class="row">
                                         <div class="col-sm-2 hidden-xs">
-                                            <img src="images/{{ $item->options->has('image') ? $item->options->image : '' }}"
+                                            <img src="images/{{ $item->options->image }}"
                                                     alt="" class="img-responsive"/>
                                         </div>
                                         <div class="col-sm-10">
